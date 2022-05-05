@@ -550,3 +550,11 @@ p.sendlineafter(b"> ","2")
 #free(43)
 p.interactive()
 ```
+
+## MISTAKES
+
+So I saw someone else's script and immediately learned a couple of things.
+
+1) tcache does put a value in the `bk` pointer a pointer back to the tcache struct it belongs to.  I didn't need to do funky stuff to make a heap leak at all.
+2) I didn't need to overwrite `MAX_DREAMS` and make a big funky fake chunk to get a glibc leak.
+3) I forgot to tell you I needed to cycle to the second onegadget, but onegadget isn't needed system("/bin/sh") is just fine using free_hook as system and writing "/bin/sh" into a chunk.
